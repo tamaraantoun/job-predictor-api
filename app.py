@@ -12,17 +12,22 @@ size_enc = joblib.load('size_encoder.pkl')
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
+    print("INPUT:", data)
+
     try:
         gender = gender_enc.transform([data["gender"]])[0]
         size = size_enc.transform([data["company_size"]])[0]
         hours = float(data["training_hours"])
-	print("Encoded:", gender, hours, size) 
+        print("ENCODED:", gender, hours, size)
+
         pred = model.predict([[gender, hours, size]])[0]
-	print("Prediction:", pred)
+        print("PREDICTION:", pred)
+
         return jsonify({"seeking": bool(pred)})
     except Exception as e:
-	print("❌ Error:", e)
+        print("❌ ERROR:", e)
         return jsonify({"error": str(e)}), 400
+
 
 @app.route("/", methods=["GET"])
 def home():
