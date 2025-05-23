@@ -9,6 +9,9 @@ model = joblib.load('job_seeking_model.pkl')
 gender_enc = joblib.load('gender_encoder.pkl')
 size_enc = joblib.load('size_encoder.pkl')
 
+print("GENDER ENCODER:", gender_enc.classes_)
+print("SIZE ENCODER:", size_enc.classes_)
+
 @app.route("/predict", methods=["POST"])
 def predict():
     data = request.json
