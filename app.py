@@ -16,9 +16,9 @@ def predict():
         gender = gender_enc.transform([data["gender"]])[0]
         size = size_enc.transform([data["company_size"]])[0]
         hours = float(data["training_hours"])
-	print("Encoded:", gender, hours, size)  # 🔍 log features
+	print("Encoded:", gender, hours, size) 
         pred = model.predict([[gender, hours, size]])[0]
-	print("Prediction:", pred)  # 🔍 log result
+	print("Prediction:", pred)
         return jsonify({"seeking": bool(pred)})
     except Exception as e:
 	print("❌ Error:", e)
